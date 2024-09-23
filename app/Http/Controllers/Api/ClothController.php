@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Cloth;
 
 class ClothController extends Controller
 {
@@ -22,7 +23,7 @@ class ClothController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * add a new cloth to the wardrobe.
      */
     public function create()
     {
@@ -34,43 +35,35 @@ class ClothController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update an existing cloth in the wardrobe .
      */
     public function update(Request $request, string $id)
     {
-        //
+        //update a cloth
+
+        $cloth = Cloth::find($id);
+
+        $cloth->update($request->all());
+
+        return response()->json($cloth);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified cloth from the wardrobe.
      */
     public function destroy(string $id)
     {
-        //
+      
+        $cloth = Cloth::findOrFail($cloth);
+
+        $cloth->delete();
+
+        return $this->successResponse($cloth);
+
     }
 }
+
+
