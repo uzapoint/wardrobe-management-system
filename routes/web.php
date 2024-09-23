@@ -22,3 +22,10 @@ Route::get('/clothes', 'App\Http\Controllers\Api\ClothController@index');
 Route::post('/clothes', 'App\Http\Controllers\Api\ClothController@create');
 Route::put('/clothes/{id}', 'App\Http\Controllers\Api\ClothController@update');
 Route::delete('/clothes/{id}', 'App\Http\Controllers\Api\ClothController@destroy');
+
+// routes for the AuthController
+Route::post('login', 'AuthController@login');
+Route::post('register', 'AuthController@register');
+Route::middleware('auth:api')->group(function () {
+    Route::get('user', 'AuthController@user');
+});

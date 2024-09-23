@@ -35,10 +35,21 @@ return [
     |
     */
 
+    // 'guards' => [
+    //     'web' => [
+    //         'driver' => 'session',
+    //         'provider' => 'users',
+    //     ],
+    // ],
     'guards' => [
         'web' => [
-            'driver' => 'session',
+            // ...
+        ],
+
+        'api' => [
+            'driver' => 'passport', // Use Passport for API authentication
             'provider' => 'users',
+            'hash' => false,
         ],
     ],
 
