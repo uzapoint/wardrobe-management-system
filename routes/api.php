@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClothingController;
+use App\Http\Controllers\WadrobesController;
+use App\Http\Controllers\WadrobesCategoriesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +17,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware('auth:sanctum')->get('/wadrobes', [WadrobesController::class, 'index']);
+
+Route::middleware('auth:sanctum')->get('/wadrobe_categories', [WadrobesCategoriesController::class, 'index']);
+Route::middleware('auth:sanctum')->get('/wadrobe_categories_clothing', [ClothingController::class, 'index']);
+
+
+Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);

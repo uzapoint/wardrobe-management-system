@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('wadrobes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete(); //Foriegn id for users to wadrobe associaion
-            $table->index('user_id'); //index
+            //   $table->foreignId('user_id')->constrained()->cascadeOnDelete(); //Foriegn id for users to wadrobe associaion
+            $table->integer('user_id')->unsigned();
+            $table->string('description');
+            $table->index(['user_id', 'description']); //index
             $table->softDeletes(); //backup measure
             $table->timestamps();
         });
@@ -28,7 +30,7 @@ return new class extends Migration
 
         //Remove indexes
         Schema::table('wadrobes', function (Blueprint $table) {
-            $table->dropIndex('user_id');
+            $table->dropIndex(['user_id', 'description']);
         });
         Schema::dropIfExists('wadrobes');
     }

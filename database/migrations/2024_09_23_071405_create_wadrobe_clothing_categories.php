@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('wadrobe_clothing_categories', function (Blueprint $table) {
             $table->id();
+            $table->integer('wadrobe_id')->unsigned()->nullable();
+            $table->string('description');
+            $table->index('description');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -22,6 +26,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('wadrobe_clothing_categories', function (Blueprint $table) {
+            $table->dropIndex('description');
+        });
         Schema::dropIfExists('wadrobe_clothing_categories');
     }
 };

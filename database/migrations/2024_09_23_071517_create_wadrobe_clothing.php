@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('wadrobe_clothing', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('wadrobe_id')->constrained()->cascadeOnDelete();
+            $table->integer('wadrobe_id')->unsigned();
             $table->string('description');
-            $table->foreignId('wadrobe_clothing_category_id')->constrained()->cascadeOnDelete();
+            $table->integer('wadrobe_clothing_category_id')->unsigned();
             $table->index('description'); // Index
             $table->softDeletes(); //backup measure
             $table->timestamps();
