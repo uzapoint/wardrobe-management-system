@@ -32,7 +32,7 @@ class WadrobesCategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['description' => 'required|string']);
+        $request->validate(['description' => 'required|string', 'wadrobe_id' => 'required']);
         return WadrobeClothingCategory::create($request->all());
     }
 

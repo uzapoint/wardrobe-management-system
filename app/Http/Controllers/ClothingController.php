@@ -39,7 +39,8 @@ class ClothingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(['description' => 'required|string']);
+        return WadrobeClothing::create($request->all());
     }
 
     /**
@@ -61,16 +62,15 @@ class ClothingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, WadrobeClothing $wadrobe)
     {
-        //
+        $wadrobe->update($request->all());
+        return $wadrobe;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(WadrobeClothing $wadrobe)
     {
-        //
+        $wadrobe->delete();
+        return response()->noContent();
     }
 }
