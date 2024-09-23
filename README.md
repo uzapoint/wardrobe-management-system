@@ -3,7 +3,7 @@
 Clone the project using git.
 Install the project dependancies 'composer update' and npm install commands.
 Set up the database.
-Seed data to the db.
+Seed wardrobe and drawer data to the db.
 
 
 Use the following api endpoints for authentication and cloth items CRUD responses.

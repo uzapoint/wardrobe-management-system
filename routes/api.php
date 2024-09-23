@@ -26,5 +26,5 @@ Route::post('/login', [App\Http\Controllers\Api\AuthController::class, 'login'])
 Route::middleware('auth:sanctum')->post('/logout', [App\Http\Controllers\Api\AuthController::class, 'logout']);
 
 // Clothing routes
-Route::middleware('auth:sanctum')->apiResource('clothing', App\Http\Controllers\Api\ClothController::class);
+Route::apiResource('clothing', App\Http\Controllers\Api\ClothController::class);
 
