@@ -11,4 +11,6 @@ class Wadrobes extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'wadrobes';
+
+    protected $guarded = [];
 }

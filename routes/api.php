@@ -24,6 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('auth:sanctum')->apiResource('wadrobes', WadrobesController::class);
+
 Route::middleware('auth:sanctum')->get('/wadrobes', [WadrobesController::class, 'index']);
 
 Route::middleware('auth:sanctum')->get('/wadrobe_categories', [WadrobesCategoriesController::class, 'index']);
