@@ -11,6 +11,14 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
+
+    // Other model properties and methods...
+
+    public function clothes()
+    {
+        return $this->hasMany(Clothes::class); // Assuming the Clothes model is in the same namespace
+    }
 
     /**
      * The attributes that are mass assignable.
