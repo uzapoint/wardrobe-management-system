@@ -8,11 +8,9 @@ POST `/api/login`
 Description
 
 This endpoint allows users to log in and receive an authentication token that can be used to access protected routes in the wardrobe management system.
-Request
-Headers
+* Request Headers
 
-    Content-Type: application/json
-
+- Content-Type: application/json
 
 ### Example Request
 
@@ -28,10 +26,10 @@ Content-Type: application/json
 ### Response
 Success Response
 
-Status Code: 200 OK
-Body
+- Status Code: 200 OK
+* Body
 
-json
+- json
 `{`
     `"token": "your-generated-token"`
 `}`
@@ -39,11 +37,11 @@ json
 
 
 ### Error Responses
--Invalid Credentials
+- Invalid Credentials
 
--Status Code: 401 Unauthorized
--Body
--json
+- Status Code: 401 Unauthorized
+- Body
+- json
 
 `{`
  `   "message": "Invalid credentials"`
