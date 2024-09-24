@@ -41,6 +41,10 @@ class ItemController extends Controller
 
         $item = Item::create($validated);
 
+        if ($request->file('image')) {
+            $item->addMediaFromRequest('image')->toMediaCollection();
+        }
+
         return new ItemResource($item);
     }
 
@@ -61,6 +65,11 @@ class ItemController extends Controller
         $this->authorize("update", $item);
 
         $validated = $request->validated();
+
+        if ($request->file('image')) {
+            $item->clearMediaCollection();
+            $item->addMediaFromRequest('image')->toMediaCollection();
+        }
 
         $item->update($validated);
 
