@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\RegisterUserController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\AuthenticateUserController;
+use App\Http\Controllers\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,3 +50,4 @@ Route::post('/sanctum/token', [AuthenticateUserController::class, 'store'])
     ->name('register');
 
 
+Route::apiResource("items", ItemController::class)->middleware('auth:sanctum');
