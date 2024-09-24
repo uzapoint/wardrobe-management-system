@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClothingItemController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OutfitController;
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use App\Models\User;
@@ -30,9 +31,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::apiResource('outfits', OutfitController::class);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('clothing-items', ClothingItemController::class);
+    Route::get('/clothing-items', [ClothingItemController::class, 'index']);
+    Route::post('/clothing-items', [ClothingItemController::class, 'store']);
+    Route::put('/clothing-items/{id}', [ClothingItemController::class, 'update']);
+    Route::delete('/clothing-items/{id}', [ClothingItemController::class, 'destroy']);
+
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('outfits', OutfitController::class);
+    Route::post('/logout', [LoginController::class, 'logout']);
 });
 
 Route::post('/login', function (Request $request) {
