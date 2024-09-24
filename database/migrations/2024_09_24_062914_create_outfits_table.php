@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('clothing_item_outfit', function (Blueprint $table) {
+        Schema::create('clothing_item_outfits', function (Blueprint $table) {
             $table->id();  // Primary key
             $table->foreignId('clothing_item_id')->constrained()->onDelete('cascade');  // Foreign key to 'clothing_items'
             $table->foreignId('outfit_id')->constrained()->onDelete('cascade');         // Foreign key to 'outfits'
