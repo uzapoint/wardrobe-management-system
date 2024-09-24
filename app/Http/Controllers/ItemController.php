@@ -17,7 +17,7 @@ class ItemController extends Controller
     {
         $this->authorize('viewAny', Item::class);
 
-        $items = Item::query()->whereRelation('users', 'id', $request->user()->id)->when(!is_null($request->query('name')), function (Builder $query) use ($request) {
+        $items = Item::query()->whereRelation('user', 'id', $request->user()->id)->when(!is_null($request->query('name')), function (Builder $query) use ($request) {
             $query->where('name', 'like', "%{$request->query('name')}%");
         })->when(!is_null($request->query('category')), function (Builder $query) use ($request) {
             $query->where("category", $request->query('category'));
