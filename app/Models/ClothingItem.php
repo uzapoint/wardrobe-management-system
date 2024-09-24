@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ClothingItem extends Model
 {
-    protected $fillable = ['name', 'size', 'color', 'material', 'category_id', 'user_id'];
+    protected $fillable = ['name', 'image', 'size', 'color', 'material', 'category_id', 'user_id'];
 
     public function category() {
         return $this->belongsTo(Category::class);
