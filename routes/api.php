@@ -8,6 +8,7 @@ use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\RegisterUserController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Auth\AuthenticateUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,22 +44,8 @@ Route::get('/verify-email/{id}/{hash}', [VerificationController::class, "verify"
 Route::post('/email/verification-notification', [VerificationController::class, 'sendNotification'])
     ->middleware(['auth', 'throttle:6,1'])
     ->name('verification.send');
+Route::post('/sanctum/token', [AuthenticateUserController::class, 'store'])
+    ->middleware('guest')
+    ->name('register');
 
 
-Route::post('/sanctum/token', function (Request $request) {
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-        'device_name' => 'required',
-    ]);
-
-    $user = User::where('email', $request->email)->first();
-
-    if (! $user || ! Hash::check($request->password, $user->password)) {
-        throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect.'],
-        ]);
-    }
-
-    return $user->createToken($request->device_name)->plainTextToken;
-});
