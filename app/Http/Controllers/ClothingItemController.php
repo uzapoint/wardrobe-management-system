@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\ClothingItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Auth;
 
 class ClothingItemController extends Controller
 {
     public function index() {
-        return ClothingItem::all();
+        return ClothingItem::with('category:id,name')->get();
     }
 
     public function show($id) {
@@ -24,15 +25,19 @@ class ClothingItemController extends Controller
             'color' => 'required|string|max:50',
             'material' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
-            'user_id' => 'required|exists:users,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
+        // Add the logged-in user's ID to the data
+        $validatedData['user_id'] = Auth::id(); // or auth()->id()
+
+        // Handle image upload if present
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images/clothing', 'public');
             $validatedData['image'] = $imagePath;
         }
 
+        // Save the clothing item
         return ClothingItem::create($validatedData);
     }
 
@@ -45,7 +50,6 @@ class ClothingItemController extends Controller
             'color' => 'string|max:50',
             'material' => 'string|max:255',
             'category_id' => 'exists:categories,id',
-            'user_id' => 'exists:users,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -58,6 +62,9 @@ class ClothingItemController extends Controller
             $imagePath = $request->file('image')->store('images/clothing', 'public');
             $validatedData['image'] = $imagePath;
         }
+
+        // Set the user_id to the logged-in user's ID
+        $validatedData['user_id'] = Auth::id(); // or auth()->id()
 
         $clothingItem->update($validatedData);
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\ClothingItemController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OutfitController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use App\Models\User;
@@ -33,6 +34,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/clothing-items', [ClothingItemController::class, 'index']);
     Route::post('/clothing-items', [ClothingItemController::class, 'store']);
+    Route::get('/clothing-items/{id}', [ClothingItemController::class, 'show']);
     Route::put('/clothing-items/{id}', [ClothingItemController::class, 'update']);
     Route::delete('/clothing-items/{id}', [ClothingItemController::class, 'destroy']);
 
@@ -52,6 +54,8 @@ Route::post('/login', function (Request $request) {
 
     return response()->json(['token' => $token], 200);
 });
+
+Route::post('/register', [RegisterController::class, 'register']);
 
 // Route to initiate the password reset (sending the reset link)
 Route::post('/forgot-password', function (Request $request) {
