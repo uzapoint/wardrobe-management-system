@@ -22,7 +22,11 @@ class ItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "name" => "required|string",
+            "category" => "required|in:shirt,trouser,jacket,shoes",
+            "size" => "required|in:xs,s,m,l,xl",
+            "color" => "required|in:red,blue,black,white",
+            "image" => "nullable|image"
         ];
     }
 }
