@@ -18,7 +18,7 @@ class Item extends Model implements HasMedia
     protected static function booted(): void
     {
         static::creating(function (Item $item) {
-            $item->user = request()->user();
+            $item->user()->associate(request()->user());
         });
     }
 
