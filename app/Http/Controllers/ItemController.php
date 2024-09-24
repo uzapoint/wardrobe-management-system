@@ -27,7 +27,7 @@ class ItemController extends Controller
             $query->where("color", $request->query('color'));
         })->orderBy('updated_at', 'DESC');
 
-        return new ItemResource($items->paginate(10));
+        return $items->paginate(10);
     }
 
     /**
