@@ -15,6 +15,13 @@ class Item extends Model implements HasMedia
 
     protected $fillable = ['name', 'user_id', "name", "color", "category", "size"];
 
+    protected static function booted(): void
+    {
+        static::creating(function (Item $item) {
+            $item->user = request()->user();
+        });
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
