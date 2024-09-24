@@ -59,3 +59,35 @@ Content-Type: application/json
 `{`
    ` "message": "Invalid credentials"`
 `}`
+
+### Initiate Password Reset
+
+#### Endpoint: POST /api/forgot-password
+
+Description: This endpoint sends a password reset link to the user's email address.
+
+* Request Headers:
+- Content-Type: application/json
+- Request Body:
+json
+
+`{`
+   ` "email": "user@example.com"`
+`}`
+
+#### Response:
+- Success (200 OK):
+- json
+
+`{`
+ `   "message": "We have emailed your password reset link."`
+`}`
+
+#### Error (400 Bad Request):
+
+- json
+
+`{`
+   ` "message": "The provided email address is not registered."`
+`}`
+
