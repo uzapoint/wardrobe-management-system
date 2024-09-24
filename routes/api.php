@@ -55,7 +55,30 @@ Route::post('/login', function (Request $request) {
     return response()->json(['token' => $token], 200);
 });
 
-Route::post('/register', [RegisterController::class, 'register']);
+Route::post('/register', function (Request $request) {
+    // Validate request data
+    $validator = Validator::make($request->all(), [
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:8|confirmed',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json(['message' => 'Validation errors', 'errors' => $validator->errors()], 422);
+    }
+
+    // Create user
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+    ]);
+
+    // Create a token for the user
+    $token = $user->createToken('wardrobe-app-token')->plainTextToken;
+
+    return response()->json(['token' => $token, 'user' => $user], 201);
+});
 
 // Route to initiate the password reset (sending the reset link)
 Route::post('/forgot-password', function (Request $request) {
