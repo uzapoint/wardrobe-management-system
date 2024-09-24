@@ -9,19 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    // Migration for outfits table
     public function up(): void
     {
         Schema::create('outfits', function (Blueprint $table) {
-            $table->id();
+            $table->id();  // Primary key
             $table->string('name');
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');  // Foreign key to 'users'
             $table->timestamps();
         });
 
         Schema::create('clothing_item_outfit', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('clothing_item_id')->constrained();
-            $table->foreignId('outfit_id')->constrained();
+            $table->id();  // Primary key
+            $table->foreignId('clothing_item_id')->constrained()->onDelete('cascade');  // Foreign key to 'clothing_items'
+            $table->foreignId('outfit_id')->constrained()->onDelete('cascade');         // Foreign key to 'outfits'
+            $table->timestamps();
         });
     }
 
